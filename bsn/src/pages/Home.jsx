@@ -29,8 +29,8 @@ export default class Home extends Component {
         return (
             <div className="App">
                 <Accounts
-                    publicKey={this.state.publicKey}
-                    privateKey={this.state.privateKey}
+                    publicKey={this.props.publicKeyy}
+                    privateKey={this.props.privateKey}
                     setKeys={this.props.setKeys}
                 />
                 <SetBackend
@@ -38,7 +38,7 @@ export default class Home extends Component {
                     setBackendContractAddress={this.setBackendContractAddress}
                 />
                 <DeployBackend
-                    publicKey={this.state.publicKey} privateKey={this.state.privateKey}
+                    publicKey={this.props.publicKey} privateKey={this.props.privateKey}
                     backendContractAddress={this.state.backendContractAddress}
                     setBackendContractAddress={this.setBackendContractAddress}
                 />

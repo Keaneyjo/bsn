@@ -1,20 +1,3 @@
-# Analysis Graphs: [
-# 1. chain sizes vs number of posts,
-# 2. number of blocks vs posts,
-# 3. chain creation vs time,
-# 4. histogram posts per community
-# vs number of shards per community
-# 4.5 histogram length per post
-# vs block size per post
-# 5. costs per post fo reach chain
-# 6. number of blocks with x 0 bit starting hashes
-# # Potential: Cost per block, Cost per community, Cost per post]
-# Evaluations: [Look at each graph and comment on result, comment on frontend]
-# maybe an IPFS upload graph
-# =
-# 7. Cost per per post / block
-# 8. Different m security parameters
-# 9. Time to validate proof
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,12 +6,9 @@ import os
 from os import listdir
 from os.path import isfile, join
 
+
 def chain_sizes_over_time():
-    # Time on x
-    # Size on y
     print("Generate chain_sizes_per_post_graph")
-    # Go through each file and return an array with entries = [time, cumulative_size]
-    # 163,8965,0,1.1465864181518555,0x0d0f29
     first_naive_block = 0
 
     # Naive Chain
@@ -113,11 +93,7 @@ def chain_sizes_over_time():
 
 
 def number_of_blocks_per_post():
-    # Time on x
-    # Size on y
     print("Generate chain_sizes_per_post_graph")
-    # Go through each file and return an array with entries = [time, cumulative_size]
-    # 163,8965,0,1.1465864181518555,0x0d0f29
     first_naive_block = 0
 
     # Naive Chain
@@ -157,18 +133,6 @@ def number_of_blocks_per_post():
     print(total_blocks_per_post[-1])
 
     # # NiPoPoW Chain
-    # total_blocks_per_post = []
-    # total_block_count = 0
-    # exists = []
-    # post_count = 0
-    # with open('nipopow_proof_stats.txt') as file:
-    #     for line in file:
-    #         entry = line.split(",")
-    #         post_count += 1
-    #         total_blocks_per_post.append(int(entry[4]))
-    # plt.plot(range(post_count), total_blocks_per_post, label=str("nipopow"))
-    # print(total_blocks_per_post[-1])
-    # NiPoPoW Chain
     total_blocks_per_post = []
     nipopow_blocks_per_post = []
     upper_chain_block_count = []
@@ -199,6 +163,7 @@ def number_of_blocks_per_post():
     plt.ylabel('Number of Blocks Per Chain')
     plt.legend()
     plt.show()
+
 
 def chain_sizes_per_post():
     # Naive Chain
@@ -238,18 +203,6 @@ def chain_sizes_per_post():
     print(total_size_per_post[-1])
 
     # # NiPoPoW Chain
-    # total_blocks_per_post = []
-    # total_block_count = 0
-    # exists = []
-    # post_count = 0
-    # with open('nipopow_proof_stats.txt') as file:
-    #     for line in file:
-    #         entry = line.split(",")
-    #         post_count += 1
-    #         total_blocks_per_post.append(int(entry[4]))
-    # plt.plot(range(post_count), total_blocks_per_post, label=str("nipopow"))
-    # print(total_blocks_per_post[-1])
-    # NiPoPoW Chain
     cumulative_size = 0
     total_size_per_post = []
     nipopow_size_per_post = []
@@ -280,75 +233,6 @@ def chain_sizes_per_post():
     plt.ylabel('Chain Size (Kilobytes)')
     plt.legend()
     plt.show()
-
-# def chain_sizes_per_post():
-#
-#     # Naive Chain
-#     last_post_count = -1
-#     cumulative_size = 0
-#     total_size_per_post = []
-#     exists = []
-#     with open('naive_stats.txt') as file:
-#         for line in file:
-#             entry = line.split(",")
-#             if entry[0] not in exists:
-#                 cumulative_size += int(int(entry[1]) / 1024)
-#                 post_count = int(entry[2])
-#                 if last_post_count != post_count:
-#                     last_post_count = post_count
-#                     total_size_per_post.append(cumulative_size)
-#             exists.append(entry[0])
-#     plt.plot(range(len(total_size_per_post)), total_size_per_post, label=str("naive"))
-#
-#     # Sharding Chain
-#     cumulative_size = 0
-#     total_size_per_post = []
-#     last_post_count = -1
-#     exists = []
-#     with open('sharding_stats.txt') as file:
-#         for line in file:
-#             entry = line.split(",")
-#             if entry[0] not in exists:
-#                 cumulative_size += int(int(entry[1]) / 1024)
-#                 post_count = int(entry[2])
-#                 if last_post_count != post_count:
-#                     last_post_count = post_count
-#                     total_size_per_post.append(cumulative_size)
-#             exists.append(entry[0])
-#     plt.plot(range(post_count + 1), total_size_per_post, label=str("sharding"))
-#
-#     # NiPoPoW Chain
-#     cumulative_size = 0
-#     upper_chain_block_count = []
-#     nipopow_size_at_blocks = []
-#     total_size_per_post = []
-#     with open('nipopow_proof_stats.txt') as file:
-#         for line in file:
-#             entry = line.split(",")
-#             upper_chain_block_count.append(int(entry[4]))
-#
-#     block_count = 0
-#     with open('nipopow_stats.txt') as file:
-#         for line in file:
-#             entry = line.split(",")
-#
-#             cumulative_size += int(int(entry[1]) / 1024)
-#             nipopow_size_at_blocks.append(cumulative_size)
-#             post_count = int(entry[2])
-#             if last_post_count != post_count:
-#                 last_post_count = post_count
-#                 upper_chain_blocks_amount = upper_chain_block_count[block_count]
-#                 total_size_per_post.append(nipopow_size_at_blocks[upper_chain_blocks_amount])
-#
-#             block_count += 1
-#
-#     plt.plot(range(len(total_size_per_post)), total_size_per_post, label=str("nipopow"))
-#
-#     plt.title("Chain Size Per Post")
-#     plt.xlabel('Total Posts')
-#     plt.ylabel('Chain Size (Kilobytes)')
-#     plt.legend()
-#     plt.show()
 
 
 def mainchain_cost_over_time():
@@ -450,6 +334,7 @@ def mainchain_cost_per_block():
     plt.legend()
     plt.show()
 
+
 def time_to_validate_proof():
     # NiPoPoW Chain
     block_count = 0
@@ -472,6 +357,7 @@ def time_to_validate_proof():
     plt.legend()
     plt.show()
 
+
 def number_of_blocks_with_T_leading_zeros():
 
     leading_zeros_count = []
@@ -492,7 +378,6 @@ def number_of_blocks_with_T_leading_zeros():
     ax.set_xticks(np.arange(len(leading_zeros_count)))
     ax.set_xticklabels(range(len(leading_zeros_count)))
 
-    # plt.bar(range(len(leading_zeros_count)), leading_zeros_count, align='center', alpha=0.5)
     plt.title("Distribution of e extra leading zeros")
     plt.xlabel('Hashes with extra e zeros')
     plt.ylabel('Block Count')
@@ -508,13 +393,6 @@ def posts_per_community_histogram(path):
         posts = dataset[subreddit]
         posts_per_community.append(len(posts))
 
-    # bins = int(skew(posts_per_community))
-    # plt.hist(posts_per_community, bins=bins)
-    # plt.title("Posts per Community")
-    # plt.xlabel('Number of Communities with x Posts')
-    # plt.ylabel('Number of Posts')
-    # plt.show()
-
     fig, ax = plt.subplots()
     labels, counts = np.unique(posts_per_community, return_counts=True)
     bars = ax.bar(labels, counts, align='center', alpha=0.5)
@@ -525,16 +403,6 @@ def posts_per_community_histogram(path):
     plt.xlabel('Number of Posts')
     plt.ylabel('Number of Community with X Posts')
     plt.show()
-
-    # fig, ax = plt.subplots()
-    # # posts_per_community.sort()
-    # bars = ax.bar(range(len(posts_per_community)), posts_per_community, align='center', alpha=0.5)
-    # ax.bar_label(bars)
-    # # plt.bar(range(len(leading_zeros_count)), leading_zeros_count, align='center', alpha=0.5)
-    # plt.title("Posts per Community")
-    # plt.xlabel('Each Community')
-    # plt.ylabel('Number of Posts')
-    # plt.show()
 
 
 def get_size(path):
@@ -547,24 +415,13 @@ def get_size(path):
                 total_size += os.path.getsize(fp)
     return total_size
 
+
 def size_per_shard_histogram(path):
 
     size_of_shards = []
 
     for folder in listdir(path):
-        # This line from here:
-        # https://stackoverflow.com/questions/1392413/calculating-a-directorys-size-using-python
         size_of_shards.append(int(get_size(join(path, folder)) / 1024))
-
-    # fig, ax = plt.subplots()
-    # labels, counts = np.unique(size_of_shards, return_counts=True)
-    # bars = ax.bar(labels, counts, align='center', alpha=0.5)
-    # ax.bar_label(bars)
-    # plt.gca().set_xticks(labels)
-    # plt.title("Makeup of Shards")
-    # plt.xlabel('Number of Shards of Size Y')
-    # plt.ylabel('Size of Shards (Kilobyte)')
-    # plt.show()
 
     bins = int(skew(size_of_shards) * 25)
     plt.hist(size_of_shards, bins=bins)
@@ -574,23 +431,15 @@ def size_per_shard_histogram(path):
     plt.show()
 
 
-# chain_sizes_over_time()
-# number_of_blocks_per_post()
-# chain_sizes_per_post()
-# mainchain_cost_over_time()
-# mainchain_cost_per_block()
-# time_to_validate_proof()
-# number_of_blocks_with_T_leading_zeros()
-#
-# dataset_path = "datasets/Reddit_Corpus_2016_01_0.1mb.txt"
-# posts_per_community_histogram(dataset_path)
-# sidechains_path = "chainSidechains/NiPoPoW"
-# size_per_shard_histogram(sidechains_path)
+chain_sizes_over_time()
+number_of_blocks_per_post()
+chain_sizes_per_post()
+mainchain_cost_over_time()
+mainchain_cost_per_block()
+time_to_validate_proof()
+number_of_blocks_with_T_leading_zeros()
 
-# Analysis Graphs: [
-# 4. histogram posts per community vs number of shards per community
-# Size of chain with different m's
-
-print(1166572 / 1E9)
-
-# 1 gas = 0.000000001 Eth
+dataset_path = "datasets/Reddit_Corpus_2016_01_0.1mb.txt"
+posts_per_community_histogram(dataset_path)
+sidechains_path = "chainSidechains/NiPoPoW"
+size_per_shard_histogram(sidechains_path)

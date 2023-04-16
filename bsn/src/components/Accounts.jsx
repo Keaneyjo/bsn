@@ -9,13 +9,7 @@ export default class Accounts extends Component {
             privateKey: this.props.privateKey,
         }
 
-        this.setKeys = this.setKeys.bind(this);
-    }
-
-    setKeys() {
-        console.log("Set Public Key: ", this.state.publicKey)
-        console.log("Set Private Key: ", this.state.privateKey)
-        this.props.setKeys(this.state.publicKey, this.state.privateKey)
+        // this.setKeys = this.setKeys.bind(this);
     }
 
     render() {
@@ -53,7 +47,7 @@ export default class Accounts extends Component {
                         />
                         <Button
                             onClick={() => {
-                                this.setKeys();
+                                this.props.setKeys(this.state.publicKey, this.state.privateKey);
                             }}
                             type="submit"
                             fullWidth

@@ -10,45 +10,13 @@ import {Route, Routes} from "react-router-dom"
 import Navbar from "./components/Navbar"
 
 
-// IPFS
-// import {Buffer} from 'buffer';
-// import { create as ipfsHttpClient } from 'ipfs-http-client';
-// const projectId = '2K6kFTG5PWdzMMu8nlKfPqyJWhn';
-// const projectSecret = '76ab4986c73843be7272555b9a6990f4';
-// const auth = `Basic ${Buffer.from(`${projectId}:${projectSecret}`).toString('base64')}`;
-// const client = ipfsHttpClient({
-//   host: 'ipfs.infura.io',
-//   port: 5001,
-//   protocol: 'https',
-//   headers: {
-//     authorization: auth,
-//   },
-// });
-//
-
-// async uploadToIPFS() {
-//   let text = this.state.value;
-//   // https://an-nft-marketplace.infura-ipfs.io
-//   // https://infura-ipfs.io
-//   const subdomain = 'https://infura-ipfs.io';
-//   console.log("Attempting to upload to IPFS.")
-//   try {
-//    const added = await client.add({ content: text });
-//    const URL = `${subdomain}/ipfs/${added.path}`;
-//    console.log(URL);
-//    return URL;
-//  } catch (error) {
-//    console.log('Error uploading file to IPFS.');
-//  }
-// };
-
 class App extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      publicKey: '0x78BD4d6f77A32861F54687FACF529de93910bd96',
-      privateKey: '35bf11198c86d90c72009804902bab1e1c5c133098e8ebb91fbdcfe214a746a7',
+      publicKey: '',
+      privateKey: '',
       backendContractAddress: null,
     }
 
@@ -63,8 +31,10 @@ class App extends Component {
   async setKeys(publicK, privateK) {
     this.setState({publicKey: publicK})
     this.setState({privateKey: privateK})
-    console.log("Set Public Key: ", publicK)
-    console.log("Set Private Key: ", privateK)
+    console.log("Set a Public Key: ", publicK)
+    console.log("Set a Private Key: ", privateK)
+    this.setState({publicKey: publicK})
+    this.setState({privateKey: privateK})
   }
 
   render() {
